@@ -69,6 +69,7 @@ Search 500,000+ community skills · One-line install · Auto-create from repos /
 - [CLI Reference](#-cli-reference)
 - [Configuration](#configuration)
 - [Example: Scientific Discovery](#-example-scientific-discovery)
+- [Use SkillNet in Code Agents](#-use-skillnet-in-code-agents)
 - [OpenClaw Integration](#-openclaw-integration)
 - [Model Context Protocol (MCP)](#-model-context-protocol-mcp-integration)
 - [Contributing](#-contributing)
@@ -368,6 +369,70 @@ A complete end-to-end demo showing how an AI Agent uses SkillNet to autonomously
 👉 **[Try the Interactive Demo](http://skillnet.openkg.cn/)** (Website → Scenarios → Science)
 &nbsp;|&nbsp;
 📓 **[View Notebook](https://github.com/zjunlp/SkillNet/blob/main/examples/scientific_workflow_demo.ipynb)**
+
+---
+
+## 🤖 Use SkillNet in Code Agents
+
+SkillNet itself is packaged as a portable agent skill at [`skills/skillnet/`](https://github.com/zjunlp/SkillNet/tree/main/skills/skillnet). Install this folder into your code agent's local skills directory, then the agent can search, download, create, evaluate, and organize skills during coding tasks.
+
+
+
+https://github.com/user-attachments/assets/ae6020d9-6846-4672-84ce-fa9c8057e92b
+
+
+
+<details>
+<summary><b>Claude Code</b></summary>
+
+Claude Code discovers user skills from `~/.claude/skills/` and project skills from `.claude/skills/`.
+
+Install as a user skill:
+
+```bash
+git clone https://github.com/zjunlp/SkillNet.git
+cd SkillNet
+
+mkdir -p ~/.claude/skills
+cp -R skills/skillnet ~/.claude/skills/skillnet
+```
+
+Or install as a project-local skill:
+
+```bash
+mkdir -p .claude/skills
+cp -R /path/to/SkillNet/skills/skillnet .claude/skills/skillnet
+```
+
+Restart Claude Code or start a new session, then try:
+
+```text
+Use SkillNet to search for a docker skill and summarize the top result.
+```
+
+</details>
+
+<details>
+<summary><b>Codex</b></summary>
+
+Codex discovers user skills from `$CODEX_HOME/skills`. If `CODEX_HOME` is not set, use `~/.codex/skills`.
+
+```bash
+git clone https://github.com/zjunlp/SkillNet.git
+cd SkillNet
+
+CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$CODEX_HOME/skills"
+cp -R skills/skillnet "$CODEX_HOME/skills/skillnet"
+```
+
+Restart Codex or start a new session, then try:
+
+```text
+Use $skillnet to search for a LangGraph skill before planning this task.
+```
+
+</details>
 
 ---
 
